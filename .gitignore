@@ -92,6 +92,10 @@ typings/
 # Electron-Forge
 out/
 
+# local env files
+.env.local
+.env.*.local
+
 # Editor directories and files
 .idea
 .vscode
@@ -100,11 +104,5 @@ out/
 *.njsproj
 *.sln
 *.sw?
-du-i18n.config.json
-# 鹦鹉插件忽略文件
-parrot-extract-out/*
+parrot-extract-out/
 parrot-config.js
-
-# local env files
-.env.local
-.env.*.local
