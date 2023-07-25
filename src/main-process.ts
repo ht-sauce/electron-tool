@@ -1,16 +1,20 @@
 // https://juejin.cn/post/7255224807322239034?searchId=20230724164808C25AE5747CE072C9E7E8#heading-5
-
 import { app, BrowserWindow } from 'electron'
 import path from 'path'
 
+const reslovePath = (pathStr: string) => {
+  return path.join(__dirname, pathStr)
+}
 const createWindow = () => {
   // 创建浏览窗口
   const mainWindow = new BrowserWindow({
+    icon: reslovePath('logo.png'),
+
     width: 1200,
     height: 800,
     // 配置窗口的WebPreferences选项，用于控制渲染进程的行为
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      preload: reslovePath('preload.js'),
       nodeIntegration: true, // 启用Node.js集成
       contextIsolation: false, // 禁用上下文隔离
       webSecurity: true // 禁用web安全策略
