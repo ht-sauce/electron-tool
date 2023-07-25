@@ -1,13 +1,11 @@
 {
   "extends": "@tsconfig/node18/tsconfig.json",
   "include": [
-    "vite.electron.build.*",
-    "vite.electron.dev.*",
     "vite.config.*",
     "vitest.config.*",
     "cypress.config.*",
     "nightwatch.conf.*",
-    "playwright.config.*",
+    "playwright.config.*"
   ],
   "compilerOptions": {
     "composite": true,

@@ -1,0 +1,27 @@
+@use "./vars/function.scss" as *;
+@use "./element/index.scss" as *;
+@use "./vars/generate.scss";
+
+html,body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-size: GetVar('h5');
+  font-weight: GetVar('bold-main');
+  color: GetVar('font-main');
+  font-variant-numeric: tabular-nums; // 使其为等宽字体。
+  font-family: GetVar(font-family);
+  background: GetVar('background');
+}
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+#app {
+  width: 100%;
+  height: 100%;
+}

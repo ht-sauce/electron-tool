@@ -1,0 +1,7 @@
+/* Element Chalk Variables */
+//@use 'sass:math';
+@use './namespce.scss' as *;
+
+@function GetVar($varName) {
+  @return var(--#{$namespace + $connector + $varName})
+}

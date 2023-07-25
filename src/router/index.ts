@@ -1,15 +1,16 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from "vue-router";
 
 const router = createRouter({
-  // electron只支持hash模式
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: () => import('@/page/home/index.vue')
-    }
-  ]
-})
+      path: "/",
+      component: () => import("@/page/home/index.vue"),
+      meta: {
+        title: "首页",
+      },
+    },
+  ],
+});
 
-export default router
+export default router;
