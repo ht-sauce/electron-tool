@@ -1,4 +1,5 @@
 import './theme/start'
+import './database'
 
 import { createApp } from 'vue'
 import App from './App.vue'
