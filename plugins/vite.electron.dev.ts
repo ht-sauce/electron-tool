@@ -21,6 +21,14 @@ export const viteElectronDev = (): Plugin => {
           target: 'esnext',
           external: ['electron'] // 排除electron库
         })
+        require('esbuild').buildSync({
+          entryPoints: ['src/preload.ts'],
+          bundle: true,
+          outfile: 'dist/preload.js',
+          platform: 'node',
+          target: 'esnext',
+          external: ['electron'] // 排除electron库
+        })
       }
 
       // 调用初始化Electron函数

@@ -18,8 +18,16 @@ export const viteElectronBuild = (): Plugin => {
           bundle: true,
           outfile: 'dist/main-process.js',
           platform: 'node',
-          target: 'node12',
+          target: 'esnext',
           external: ['electron']
+        })
+        require('esbuild').buildSync({
+          entryPoints: ['src/preload.ts'],
+          bundle: true,
+          outfile: 'dist/preload.js',
+          platform: 'node',
+          target: 'esnext',
+          external: ['electron'] // 排除electron库
         })
       }
 
