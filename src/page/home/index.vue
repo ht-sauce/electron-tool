@@ -7,28 +7,14 @@
         </el-button>
       </router-link>
     </template>
-    <el-button @click="insert(new Date().getTime())">测试插入数据</el-button>
-    <el-button @click="getBackData">获取数据{{ test }}</el-button>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
-import { get, insert } from '@/database/knowledgeBase'
-import { onMounted, ref } from 'vue'
 const router = useRouter()
 
 const routerList = router.options.routes
-const test = ref<any>()
-onMounted(() => {
-  getBackData()
-})
-
-async function getBackData() {
-  const data = await get()
-  console.log(data)
-  test.value = data
-}
 </script>
 <style scoped lang="scss">
 .home {
