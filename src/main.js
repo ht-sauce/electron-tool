@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Menu } = require('electron')
 const path = require('path')
 
 if (require('electron-squirrel-startup')) {
@@ -14,6 +14,8 @@ const createWindow = () => {
     icon: getBulidFile('logo.png'),
     width: 1400,
     height: 1000,
+    minHeight: 1000,
+    minWidth: 1400,
     webPreferences: {
       preload: getBulidFile('preload.js'),
       nodeIntegration: true, // 启用Node.js集成
@@ -21,6 +23,7 @@ const createWindow = () => {
       webSecurity: true, // 禁用web安全策略
     },
   })
+  Menu.setApplicationMenu(null)
 
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
     mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL)
@@ -28,8 +31,20 @@ const createWindow = () => {
     mainWindow.loadFile(getBulidFile(`../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`))
   }
 
-  // Open the DevTools.
+  // 默认打开开发工具
   mainWindow.webContents.openDevTools()
+  // 监听键盘事件
+  mainWindow.webContents.on('before-input-event', (event, input) => {
+    console.log(input.key)
+    if (input.key.toLowerCase() === 'f12') {
+      event.preventDefault()
+      mainWindow.webContents.openDevTools()
+    }
+    if (input.key.toLowerCase() === 'f5') {
+      event.preventDefault()
+      mainWindow.webContents.reload()
+    }
+  })
 }
 
 app.on('ready', createWindow)

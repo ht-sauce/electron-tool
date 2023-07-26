@@ -15,6 +15,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const routerList = router.options.routes
+console.log(routerList)
 </script>
 <style scoped lang="scss">
 .home {

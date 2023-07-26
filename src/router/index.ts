@@ -48,7 +48,7 @@ for (const key in childrenRouter) {
 }
 if (childrenRouterLayoutConfig) routes.push(childrenRouterLayoutConfig)
 
-console.log(routes)
+// console.log(routes)
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes,
