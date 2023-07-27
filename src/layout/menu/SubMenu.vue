@@ -14,16 +14,30 @@
 </template>
 <script setup lang="ts">
 import type { MenuItem } from './types'
-
+import { watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { activeIndex } from './menuData'
 defineOptions({
   name: 'SubMenu',
 })
 type Props = {
   menuItem: MenuItem
 }
-withDefaults(defineProps<Props>(), {})
+const props = withDefaults(defineProps<Props>(), {})
 
 const emits = defineEmits(['select'])
+const route = useRoute()
+watch(
+  () => route.path,
+  (path: string) => {
+    if (path === props.menuItem.path) {
+      activeIndex.value = props.menuItem.id
+    }
+  },
+  {
+    immediate: true,
+  },
+)
 
 function handleSelect(item: MenuItem) {
   emits('select', item)

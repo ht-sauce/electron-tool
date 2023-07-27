@@ -6,64 +6,21 @@
   </el-menu>
 </template>
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import SubMenu from './SubMenu.vue'
 import type { MenuItem } from './types'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { MenuItemType } from './types'
+import { recursionId } from './tool'
+import { activeIndex, menuConfigList } from './menuData'
 
 const router = useRouter()
-// 为菜单添加id
-const recursionId = (menuList: MenuItem[], indexs?: string) => {
-  for (let i = 0; i < menuList.length; i++) {
-    const itemMenu = menuList[i]
-    const id = i.toString()
-    itemMenu.id = (indexs ? indexs + '-' : '') + id
-    if (itemMenu.children) {
-      recursionId(itemMenu.children, itemMenu.id)
-    }
-  }
-}
-const menuList = computed(() => {
-  const inMenu = [
-    // {
-    //   name: '工具',
-    //   // 操作函数情况下，path为传入的函数
-    //   type: MenuItemType.fun,
-    //   children: [
-    //     {
-    //       name: '刷新页面',
-    //       path: '/',
-    //       type: MenuItemType.fun,
-    //     },
-    //     {
-    //       name: '开发工具',
-    //       path: '/',
-    //       type: MenuItemType.fun,
-    //     },
-    //   ],
-    // },
-    {
-      name: '首页',
-      path: '/',
-    },
-    {
-      name: '知识库',
-      children: [
-        {
-          name: '知识库首页',
-          path: '/wiki/home',
-        },
-      ],
-    },
-  ]
-  recursionId(inMenu)
-  // console.log(inMenu)
-  return inMenu
-})
-// console.log(router.options.routes)
 
-const activeIndex = ref('1')
+const menuList = computed(() => {
+  recursionId(menuConfigList.value)
+  return menuConfigList.value
+})
+
 const handleSelect = (item: MenuItem) => {
   if (item.type === MenuItemType.fun) return
   if (item.path) {

@@ -7,5 +7,7 @@
 
 <script setup lang="ts">
 import LayoutMenu from './layout/menu/index.vue'
+
+console.log(import.meta.env)
 </script>
 <style scoped lang="scss"></style>
