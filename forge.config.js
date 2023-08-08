@@ -5,11 +5,13 @@ module.exports = {
     version: '1.0.0', // 应用程序版本号
     // 不需要打包的文件和文件夹的路径列表,true表示忽略,false表示包含
     ignore(path) {
-      if (!path) return false
+      // 主进程中引入的包文件有bug，需要手动拷贝文件，暂时不处理，先开发功能
       if (path.includes('/node_modules/electron-squirrel-startup')) return false
+
       if (path.includes('/.vite')) return false
       if (path.includes('/package.json')) return false
 
+      if (!path) return false
       return true
     },
   },
