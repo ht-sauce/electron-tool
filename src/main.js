@@ -11,7 +11,7 @@ const getBulidFile = (filePath = '') => {
 
 const createWindow = () => {
   const mainWindow = new BrowserWindow({
-    icon: getBulidFile('logo.png'),
+    icon: getBulidFile('icon.png'),
     width: 1400,
     height: 1000,
     minHeight: 1000,
@@ -35,7 +35,7 @@ const createWindow = () => {
   mainWindow.webContents.openDevTools()
   // 监听键盘事件
   mainWindow.webContents.on('before-input-event', (event, input) => {
-    console.log(input.key)
+    // console.log(input.key)
     if (input.key.toLowerCase() === 'f12') {
       event.preventDefault()
       mainWindow.webContents.openDevTools()
