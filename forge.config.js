@@ -3,14 +3,15 @@ module.exports = {
     icon: 'public/icon',
     // asar: true,
     version: '1.0.0', // 应用程序版本号
-    ignore: [
-      // 不需要打包的文件和文件夹的路径列表
-      '.git',
-      '.vscode',
-      '.idea',
-      'src',
-      'node_modules/element-plus',
-    ],
+    // 不需要打包的文件和文件夹的路径列表,true表示忽略,false表示包含
+    ignore(path) {
+      if (!path) return false
+      if (path.includes('/node_modules/electron-squirrel-startup')) return false
+      if (path.includes('/.vite')) return false
+      if (path.includes('/package.json')) return false
+
+      return true
+    },
   },
   rebuildConfig: {},
   makers: [

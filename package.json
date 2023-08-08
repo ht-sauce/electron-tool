@@ -10,7 +10,8 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
-    "lint": "eslint 3d-study --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
+    "lint": "eslint 3d-study --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "vite:build": "vite build"
   },
   "keywords": [],
   "author": {
