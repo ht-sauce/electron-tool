@@ -1,5 +1,5 @@
 <template>
-  <el-tooltip placement="left" effect="light" trigger="click">
+  <el-tooltip placement="left" effect="light" trigger="hover">
     <template #content>
       <pre>
 1、按住ctrl键，滚动鼠标滚轮，可以缩放画布

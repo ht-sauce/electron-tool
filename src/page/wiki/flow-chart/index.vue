@@ -61,6 +61,15 @@ function initGraph() {
   graph.use(
     new Selection({ enabled: true, multiple: true, rubberband: true, movable: true, showNodeSelectionBox: true }),
   )
+
+  // 绑定删除快捷键
+  graph.bindKey(['delete', 'backspace'], () => {
+    const cells = graph.getSelectedCells()
+    if (cells.length) {
+      graph.removeCells(cells)
+    }
+  })
+
   const commonAttrs = {
     body: {
       fill: '#fff',
@@ -94,6 +103,7 @@ function initGraph() {
     y: 40,
     width: 80,
     height: 40,
+
     label: 'ellipse',
     attrs: commonAttrs,
   })
@@ -115,7 +125,6 @@ function initGraph() {
     title: '模块面板',
     search: true,
     placeholder: '搜索',
-    notFoundText: '未找到',
     groups: [],
   })
   stencil.load([n1, n2, n3, n4])
