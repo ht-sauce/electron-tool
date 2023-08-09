@@ -13,12 +13,12 @@ import { Graph } from '@antv/x6'
 import { Snapline } from '@antv/x6-plugin-snapline' // 对齐线
 import { Keyboard } from '@antv/x6-plugin-keyboard' // 快捷键
 import { Selection } from '@antv/x6-plugin-selection' // 框选
-import { Stencil } from '@antv/x6-plugin-stencil' // 面板
+import { Stencil } from '@antv/x6-plugin-stencil'
+import { graph as graphVal } from './useData'
+import { getShape } from './chart-list' // 面板
 
 const flowChartRef = ref<HTMLDivElement>(null)
 const stencilRef = ref<HTMLDivElement>(null)
-
-let graph: Graph
 
 onMounted(() => {
   initGraph()
@@ -27,7 +27,8 @@ onMounted(() => {
 function initGraph() {
   const div = flowChartRef.value as HTMLDivElement
 
-  graph = new Graph({
+  // 基本配置
+  const graph = new Graph({
     container: div,
     autoResize: true,
     // 缩放与平移
@@ -56,6 +57,8 @@ function initGraph() {
       ],
     },
   })
+  graphVal.value = graph
+  // 加载插件
   graph.use(new Snapline({ enabled: true }))
   graph.use(new Keyboard({ enabled: true }))
   graph.use(
@@ -70,56 +73,7 @@ function initGraph() {
     }
   })
 
-  const commonAttrs = {
-    body: {
-      fill: '#fff',
-      stroke: '#8f8f8f',
-      strokeWidth: 1,
-    },
-  }
-  const n1 = graph.createNode({
-    shape: 'rect',
-    x: 40,
-    y: 40,
-    width: 80,
-    height: 40,
-    label: 'rect',
-    attrs: commonAttrs,
-  })
-
-  const n2 = graph.createNode({
-    shape: 'circle',
-    x: 180,
-    y: 40,
-    width: 40,
-    height: 40,
-    label: 'circle',
-    attrs: commonAttrs,
-  })
-
-  const n3 = graph.createNode({
-    shape: 'ellipse',
-    x: 280,
-    y: 40,
-    width: 80,
-    height: 40,
-
-    label: 'ellipse',
-    attrs: commonAttrs,
-  })
-
-  const n4 = graph.createNode({
-    shape: 'path',
-    x: 420,
-    y: 40,
-    width: 40,
-    height: 40,
-    // https://www.svgrepo.com/svg/13653/like
-    path: 'M24.85,10.126c2.018-4.783,6.628-8.125,11.99-8.125c7.223,0,12.425,6.179,13.079,13.543c0,0,0.353,1.828-0.424,5.119c-1.058,4.482-3.545,8.464-6.898,11.503L24.85,48L7.402,32.165c-3.353-3.038-5.84-7.021-6.898-11.503c-0.777-3.291-0.424-5.119-0.424-5.119C0.734,8.179,5.936,2,13.159,2C18.522,2,22.832,5.343,24.85,10.126z',
-    attrs: commonAttrs,
-    label: 'path',
-  })
-
+  // 左侧面板
   const stencil = new Stencil({
     target: graph,
     title: '模块面板',
@@ -127,7 +81,7 @@ function initGraph() {
     placeholder: '搜索',
     groups: [],
   })
-  stencil.load([n1, n2, n3, n4])
+  stencil.load(getShape())
   stencilRef.value.appendChild(stencil.container)
 }
 </script>
