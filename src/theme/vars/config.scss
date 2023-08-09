@@ -1,3 +1,4 @@
+@use './function.scss' as *;
 // 绿色
 $success: #52c41a;
 // 黄色
@@ -59,6 +60,7 @@ $css-var-list: (
   bold-title: 600,
   // 阴影
   shadow1: 0 3px 6px 0px rgba(0,0,0,0.12),
+  shadow2: 0 0 6px 0px GetVar('main-color5'),
   // 间距
   margin0: 16px, // 块元素间距
   maring1: 12px, // label块间距
@@ -70,5 +72,5 @@ $css-var-list: (
   padding2: 8px,
   // 边框
   border: darken($white,15%)
-  //
+  //圆角
 )

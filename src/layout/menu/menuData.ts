@@ -23,13 +23,21 @@ export const menuConfigList = ref<MenuItem[]>([
     path: '/',
   },
   {
-    name: '知识库',
-    children: [
-      {
-        name: '知识库首页',
-        path: '/wiki/home',
-      },
-    ],
+    name: '关系图',
+    path: '/wiki/flow-chart',
   },
+  {
+    name: '知识库',
+    path: '/wiki/home',
+  },
+  // {
+  //   name: '知识库',
+  //   children: [
+  //     {
+  //       name: '知识库首页',
+  //       path: '/wiki/home',
+  //     },
+  //   ],
+  // },
 ])
 export const activeIndex = ref('0')

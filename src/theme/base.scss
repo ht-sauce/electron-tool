@@ -25,3 +25,19 @@ a:hover {
   width: 100%;
   height: 100%;
 }
+::-webkit-scrollbar {
+  width: 4px;  /* 设置滚动条宽度*/
+  height: 4px; /* 设置滚动条高度*/
+  &:hover {
+    width: 16px;
+    height: 16px;
+  }
+}
+/*定义滚动条滑块的样式*/
+::-webkit-scrollbar-thumb {
+  background-color: GetVar('main-color5');  /* 设置滚动条Thumb颜色*/
+}
+/*定义滚动条轨道的背景颜色*/
+::-webkit-scrollbar-track {
+  background-color:  GetVar('main-color0'); /* 设置滚动条Track颜色*/
+}

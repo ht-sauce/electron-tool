@@ -22,6 +22,13 @@
   "dependencies": {
     "@ant-design/colors": "^7.0.0",
     "@antv/x6": "^2.13.1",
+    "@antv/x6-plugin-history": "^2.2.3",
+    "@antv/x6-plugin-keyboard": "^2.2.1",
+    "@antv/x6-plugin-selection": "^2.1.7",
+    "@antv/x6-plugin-snapline": "^2.1.7",
+    "@antv/x6-plugin-stencil": "^2.1.4",
+    "@element-plus/icons-vue": "^2.1.0",
+    "@wangeditor/editor-for-vue": "^5.1.12",
     "electron-squirrel-startup": "^1.0.0",
     "element-plus": "^2.3.8",
     "localforage": "^1.10.0",
