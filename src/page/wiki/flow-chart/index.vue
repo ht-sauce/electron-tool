@@ -15,7 +15,7 @@ import { Keyboard } from '@antv/x6-plugin-keyboard' // 快捷键
 import { Selection } from '@antv/x6-plugin-selection' // 框选
 import { Stencil } from '@antv/x6-plugin-stencil' // 左侧面板
 import { Clipboard } from '@antv/x6-plugin-clipboard' // 剪切板
-import { baseColor, graph as graphVal } from './useData'
+import { baseColor, graph as graphVal, highlighting } from './useData'
 import { getShape } from './chart-list' // 面板
 
 const flowChartRef = ref<HTMLDivElement>(null)
@@ -45,6 +45,9 @@ function initGraph() {
     // 连线交互
     connecting: {
       router: 'manhattan',
+      allowBlank: false,
+      allowLoop: false,
+      highlight: true,
       connector: {
         name: 'rounded',
         args: {
@@ -53,7 +56,6 @@ function initGraph() {
       },
       anchor: 'center',
       connectionPoint: 'anchor',
-      allowBlank: false,
       snap: {
         radius: 20,
       },
@@ -63,7 +65,7 @@ function initGraph() {
           attrs: {
             line: {
               stroke: baseColor,
-              strokeWidth: 2,
+              strokeWidth: 1,
               // 箭头处理
               targetMarker: {
                 name: 'block',
@@ -77,6 +79,17 @@ function initGraph() {
       },
       validateConnection({ targetMagnet }) {
         return !!targetMagnet
+      },
+    },
+    highlighting: {
+      magnetAdsorbed: {
+        name: 'stroke',
+        args: {
+          attrs: {
+            fill: highlighting,
+            stroke: highlighting,
+          },
+        },
       },
     },
     grid: {
@@ -171,6 +184,15 @@ function initGraph() {
   display: flex;
   width: 100%;
   height: 100%;
+  // 选中线条样式
+  ::v-deep(.x6-edge:hover path:nth-child(2)) {
+    stroke: #faad14;
+    stroke-width: 2px;
+  }
+  ::v-deep(.x6-edge-selected path:nth-child(2)) {
+    stroke: #faad14;
+    stroke-width: 4px !important;
+  }
 }
 .flow-chart {
   width: 100%;
