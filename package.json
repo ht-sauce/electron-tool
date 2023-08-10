@@ -22,6 +22,7 @@
   "dependencies": {
     "@ant-design/colors": "^7.0.0",
     "@antv/x6": "^2.13.1",
+    "@antv/x6-plugin-clipboard": "^2.1.6",
     "@antv/x6-plugin-history": "^2.2.3",
     "@antv/x6-plugin-keyboard": "^2.2.1",
     "@antv/x6-plugin-selection": "^2.1.7",
@@ -36,13 +37,13 @@
     "vue-router": "^4.2.4"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^6.2.1",
-    "@electron-forge/maker-deb": "^6.2.1",
-    "@electron-forge/maker-rpm": "^6.2.1",
-    "@electron-forge/maker-squirrel": "^6.2.1",
-    "@electron-forge/maker-zip": "^6.2.1",
-    "@electron-forge/plugin-auto-unpack-natives": "^6.2.1",
-    "@electron-forge/plugin-vite": "^6.2.1",
+    "@electron-forge/cli": "^6.3.0",
+    "@electron-forge/maker-deb": "^6.3.0",
+    "@electron-forge/maker-rpm": "^6.3.0",
+    "@electron-forge/maker-squirrel": "^6.3.0",
+    "@electron-forge/maker-zip": "^6.3.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^6.3.0",
+    "@electron-forge/plugin-vite": "^6.3.0",
     "@tsconfig/node18": "^18.2.0",
     "@types/node": "^18.17.0",
     "@vitejs/plugin-vue": "^4.2.3",

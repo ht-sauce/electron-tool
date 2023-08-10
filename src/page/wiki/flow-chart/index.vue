@@ -9,11 +9,12 @@
 <script lang="ts" setup>
 import TooltipTips from './tooltip-tips.vue'
 import { onMounted, ref } from 'vue'
-import { Graph } from '@antv/x6'
+import { Graph, Shape } from '@antv/x6'
 import { Snapline } from '@antv/x6-plugin-snapline' // 对齐线
 import { Keyboard } from '@antv/x6-plugin-keyboard' // 快捷键
 import { Selection } from '@antv/x6-plugin-selection' // 框选
-import { Stencil } from '@antv/x6-plugin-stencil'
+import { Stencil } from '@antv/x6-plugin-stencil' // 左侧面板
+import { Clipboard } from '@antv/x6-plugin-clipboard' // 剪切板
 import { graph as graphVal } from './useData'
 import { getShape } from './chart-list' // 面板
 
@@ -41,6 +42,43 @@ function initGraph() {
       enabled: true,
       modifiers: ['ctrl', 'meta'],
     },
+    // 连线交互
+    connecting: {
+      router: 'manhattan',
+      connector: {
+        name: 'rounded',
+        args: {
+          radius: 8,
+        },
+      },
+      anchor: 'center',
+      connectionPoint: 'anchor',
+      allowBlank: false,
+      snap: {
+        radius: 20,
+      },
+      createEdge() {
+        // 连线样式
+        return new Shape.Edge({
+          attrs: {
+            line: {
+              stroke: '#613400',
+              strokeWidth: 2,
+              // 箭头处理
+              targetMarker: {
+                name: 'block',
+                width: 12,
+                height: 8,
+              },
+            },
+          },
+          zIndex: 0,
+        })
+      },
+      validateConnection({ targetMagnet }) {
+        return !!targetMagnet
+      },
+    },
     grid: {
       visible: true,
       type: 'doubleMesh',
@@ -64,6 +102,7 @@ function initGraph() {
   graph.use(
     new Selection({ enabled: true, multiple: true, rubberband: true, movable: true, showNodeSelectionBox: true }),
   )
+  graph.use(new Clipboard({ enabled: true }))
 
   // 绑定删除快捷键
   graph.bindKey(['delete', 'backspace'], () => {
@@ -72,7 +111,22 @@ function initGraph() {
       graph.removeCells(cells)
     }
   })
+  graph.bindKey('ctrl+c', () => {
+    const cells = graph.getSelectedCells()
+    if (cells.length) {
+      graph.copy(cells)
+    }
+    return false
+  })
 
+  graph.bindKey('ctrl+v', () => {
+    if (!graph.isClipboardEmpty()) {
+      const cells = graph.paste({ offset: 32 })
+      graph.cleanSelection()
+      graph.select(cells)
+    }
+    return false
+  })
   // 左侧面板
   const stencil = new Stencil({
     target: graph,
@@ -105,6 +159,7 @@ function initGraph() {
 .flow-chart {
   width: 100%;
   height: 100%;
+  flex: 1;
 }
 .stencil-fef {
   position: relative;
