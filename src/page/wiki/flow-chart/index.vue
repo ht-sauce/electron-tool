@@ -15,7 +15,7 @@ import { Keyboard } from '@antv/x6-plugin-keyboard' // 快捷键
 import { Selection } from '@antv/x6-plugin-selection' // 框选
 import { Stencil } from '@antv/x6-plugin-stencil' // 左侧面板
 import { Clipboard } from '@antv/x6-plugin-clipboard' // 剪切板
-import { graph as graphVal } from './useData'
+import { baseColor, graph as graphVal } from './useData'
 import { getShape } from './chart-list' // 面板
 
 const flowChartRef = ref<HTMLDivElement>(null)
@@ -62,7 +62,7 @@ function initGraph() {
         return new Shape.Edge({
           attrs: {
             line: {
-              stroke: '#613400',
+              stroke: baseColor,
               strokeWidth: 2,
               // 箭头处理
               targetMarker: {
@@ -111,6 +111,7 @@ function initGraph() {
       graph.removeCells(cells)
     }
   })
+  // 绑定复制粘贴快捷键
   graph.bindKey('ctrl+c', () => {
     const cells = graph.getSelectedCells()
     if (cells.length) {
@@ -118,7 +119,6 @@ function initGraph() {
     }
     return false
   })
-
   graph.bindKey('ctrl+v', () => {
     if (!graph.isClipboardEmpty()) {
       const cells = graph.paste({ offset: 32 })
@@ -135,6 +135,22 @@ function initGraph() {
     placeholder: '搜索',
     groups: [],
   })
+
+  // 控制连接桩显示/隐藏
+  const showPorts = (ports: NodeListOf<SVGElement>, show: boolean) => {
+    for (let i = 0, len = ports.length; i < len; i += 1) {
+      ports[i].style.visibility = show ? 'visible' : 'hidden'
+    }
+  }
+  graph.on('node:mouseenter', () => {
+    const ports = div.querySelectorAll('.x6-port-body') as NodeListOf<SVGElement>
+    showPorts(ports, true)
+  })
+  graph.on('node:mouseleave', () => {
+    const ports = div.querySelectorAll('.x6-port-body') as NodeListOf<SVGElement>
+    showPorts(ports, false)
+  })
+
   stencil.load(getShape())
   stencilRef.value.appendChild(stencil.container)
 }
